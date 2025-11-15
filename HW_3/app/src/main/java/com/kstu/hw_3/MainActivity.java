@@ -1,5 +1,6 @@
 package com.kstu.hw_3;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -13,8 +14,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.button.MaterialButton;
 public class MainActivity extends AppCompatActivity {
     private TextView textView;
-    int x,y;
-    boolean plus,minus,multiply,divide;
+    int x, y;
+    boolean plus, minus, multiply, divide;
     private boolean isOperationClick;
 
     @Override
@@ -30,6 +31,21 @@ public class MainActivity extends AppCompatActivity {
         textView = findViewById(R.id.text_view);
         initListeners();
 
+        // The code must be inside onCreate
+        MaterialButton btnSet = findViewById(R.id.btn_set);
+        btnSet.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View view){
+                startActivityWithResult();
+            }
+        });
+    }
+
+    private void startActivityWithResult() {
+        Intent intent = new Intent(this, SecondActivity.class);
+        intent.putExtra("result", textView.getText().toString());
+        startActivity(intent);
     }
 
     private void initListeners() {
@@ -52,8 +68,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_charge).setOnClickListener(this::onOperatorClick);
         findViewById(R.id.btn_ac).setOnClickListener(this::onNumberClick);
         findViewById(R.id.btn_dot).setOnClickListener(this::onNumberClick);
-
-
+    }
+    private void btnSetOnVisibility(){
+        findViewById(R.id.btn_set).setVisibility(View.VISIBLE);
     }
     private void onNumberClick(View view){
         String text = ((MaterialButton)view).getText().toString();
@@ -71,51 +88,60 @@ public class MainActivity extends AppCompatActivity {
         isOperationClick = false;
     }
     private void onOperatorClick(View view){
-        if(view.getId() == R.id.btn_plus){
-            x = Integer.parseInt(textView.getText().toString());
-            plus = true;
-        }
-        if(view.getId() == R.id.btn_minus){
-            x = Integer.parseInt(textView.getText().toString());
-            minus = true;
-        }
-        if(view.getId() == R.id.btn_multiply){
-            x = Integer.parseInt(textView.getText().toString());
-            multiply = true;
-        }
-        if(view.getId() == R.id.btn_divide){
-            x = Integer.parseInt(textView.getText().toString());
-            divide = true;
-        }
-        if(view.getId() == R.id.btn_equal && plus){
-            y = Integer.parseInt(textView.getText().toString());
-            int result = x + y;
-            textView.setText(String.valueOf(result));
-            plus = false;
-        }
-        if(view.getId() == R.id.btn_equal && minus){
-            y = Integer.parseInt(textView.getText().toString());
-            int result = x - y;
-            textView.setText(String.valueOf(result));
-            minus = false;
-        }
-        if(view.getId() == R.id.btn_equal && multiply){
-            y = Integer.parseInt(textView.getText().toString());
-            int result = x * y;
-            textView.setText(String.valueOf(result));
-            multiply = false;
-        }
-        if(view.getId() == R.id.btn_equal && divide){
-            y = Integer.parseInt(textView.getText().toString());
-            if(y == 0){
-                textView.setText("Error");
-                return;
+        try {
+            if (view.getId() == R.id.btn_plus) {
+                x = Integer.parseInt(textView.getText().toString());
+                plus = true;
             }
-            int result = x / y;
-            textView.setText(String.valueOf(result));
-            divide = false;
+            if (view.getId() == R.id.btn_minus) {
+                x = Integer.parseInt(textView.getText().toString());
+                minus = true;
+            }
+            if (view.getId() == R.id.btn_multiply) {
+                x = Integer.parseInt(textView.getText().toString());
+                multiply = true;
+            }
+            if (view.getId() == R.id.btn_divide) {
+                x = Integer.parseInt(textView.getText().toString());
+                divide = true;
+            }
+            if (view.getId() == R.id.btn_equal && plus) {
+                y = Integer.parseInt(textView.getText().toString());
+                int result = x + y;
+                btnSetOnVisibility();
+                textView.setText(String.valueOf(result));
+                plus = false;
+            }
+            if (view.getId() == R.id.btn_equal && minus) {
+                y = Integer.parseInt(textView.getText().toString());
+                int result = x - y;
+                btnSetOnVisibility();
+                textView.setText(String.valueOf(result));
+                minus = false;
+            }
+            if (view.getId() == R.id.btn_equal && multiply) {
+                y = Integer.parseInt(textView.getText().toString());
+                int result = x * y;
+                btnSetOnVisibility();
+                textView.setText(String.valueOf(result));
+                multiply = false;
+            }
+            if (view.getId() == R.id.btn_equal && divide) {
+                y = Integer.parseInt(textView.getText().toString());
+                if (y == 0) {
+                    textView.setText("Error");
+                    return;
+                }
+
+                int result = x / y;
+                textView.setText(String.valueOf(result));
+                divide = false;
+                btnSetOnVisibility();
+            }
+            isOperationClick = true;
+        } catch (NumberFormatException e) {
+            textView.setText("Error");
         }
-        isOperationClick = true;
 
     }
 }
