@@ -5,15 +5,104 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/ic_background"
+    android:fitsSystemWindows="true">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/text1"
+        android:text="Вход"
+        android:textSize="24sp"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp" />
+    <TextView
+        android:id="@+id/Welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Добро пожаловать!"
+        android:textSize="28sp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="100dp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/info"
+        android:layout_height="wrap_content"
+        android:text="Выполните вход \n или зарегистрируйтесь"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/Welcome"
+       app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="330dp"
+        />
+
+    <EditText
+        android:id="@+id/email"
+        app:layout_constraintTop_toTopOf="@+id/info"
+        android:layout_marginTop="50dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@drawable/edittext"
+        android:hint="Введите вашу почту"
+        android:textColor="@color/grey"
+        android:inputType="textEmailAddress"
+        />
+    <EditText
+        android:id="@+id/password"
+        app:layout_constraintTop_toTopOf="@+id/info"
+        android:layout_marginTop="95dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@drawable/edittext"
+        android:hint="Введите пароль"
+        android:textColor="@color/grey"
+        android:inputType="textPassword"
+        />
+    <Button
+        app:layout_constraintTop_toTopOf="@+id/info"
+        android:layout_marginTop="145dp"
+        android:layout_marginHorizontal="20dp"
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:text="Войти"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:enabled="false"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Забыли пароль?"
+        app:layout_constraintTop_toTopOf="@+id/button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="60dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_marginEnd="120dp"
+        android:id="@+id/text2"
+        />
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

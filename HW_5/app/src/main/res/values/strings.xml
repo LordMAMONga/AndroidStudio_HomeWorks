@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HW_5</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="my_api">pk.eyJ1IjoibWFtb25nYSIsImEiOiJjbWk1bno2cjUwNnpvMmtzNjNjbnlmbWJ5In0.xhedPW9S9g5-TuuMCxJiJg</string>
+</resources>
