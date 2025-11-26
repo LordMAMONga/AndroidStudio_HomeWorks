@@ -1,14 +1,19 @@
 package com.kstu.myapplication;
 
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.kstu.myapplication.databinding.ActivityMain2Binding;
 
@@ -36,8 +41,40 @@ public class MainActivity2 extends AppCompatActivity {
 
         FoodAdapter adapter = new FoodAdapter(foods);
         binding.recyclerView.setAdapter(adapter);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity2.this, LinearLayout.HORIZONTAL, false));
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity2.this, RecyclerView.HORIZONTAL, false));
 
+        binding.recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener(){
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                View childView = rv.findChildViewUnder(e.getX(), e.getY());
+                if (childView != null && gestureDetector.onTouchEvent(e)) {
+                    childView.animate().translationZ(20).setDuration(200).withEndAction(() -> {
+                        childView.animate().translationZ(0).setDuration(200).start();
+                    }).start();
+                    return true;
+                }
+                return false;
+            }
+
+                    @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+
+            private GestureDetector gestureDetector = new GestureDetector(MainActivity2.this,new GestureDetector.SimpleOnGestureListener(){
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+            });
+
+
+        });
     }
 
 }
