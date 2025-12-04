@@ -8,9 +8,17 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (intent == null) {
+            return;
+        }
+
         int taskId = intent.getIntExtra("task_id", 0);
         String taskTitle = intent.getStringExtra("task_title");
         String taskDescription = intent.getStringExtra("task_description");
+
+        if (taskTitle == null) {
+            return;
+        }
 
         NotificationHelper notificationHelper = new NotificationHelper(context);
 

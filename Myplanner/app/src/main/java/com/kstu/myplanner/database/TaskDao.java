@@ -5,9 +5,11 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.kstu.myplanner.model.Task;
+import com.kstu.myplanner.model.TaskWithSubtasks;
 
 import java.util.List;
 
@@ -15,7 +17,7 @@ import java.util.List;
 public interface TaskDao {
 
     @Insert
-    void insert(Task task);
+    long insert(Task task);
 
     @Update
     void update(Task task);
@@ -26,18 +28,25 @@ public interface TaskDao {
     @Query("DELETE FROM tasks")
     void deleteAllTasks();
 
-    @Query("SELECT * FROM tasks ORDER BY dueDate ASC")
-    LiveData<List<Task>> getAllTasks();
+    @Transaction
+    @Query("SELECT * FROM tasks WHERE parentId IS NULL ORDER BY dueDate ASC")
+    LiveData<List<TaskWithSubtasks>> getAllTasksWithSubtasks();
 
-    @Query("SELECT * FROM tasks WHERE isCompleted = 0 ORDER BY dueDate ASC")
-    LiveData<List<Task>> getActiveTasks();
+    @Transaction
+    @Query("SELECT * FROM tasks WHERE isCompleted = 0 AND parentId IS NULL ORDER BY dueDate ASC")
+    LiveData<List<TaskWithSubtasks>> getActiveTasksWithSubtasks();
 
-    @Query("SELECT * FROM tasks WHERE isCompleted = 1 ORDER BY dueDate DESC")
-    LiveData<List<Task>> getCompletedTasks();
+    @Transaction
+    @Query("SELECT * FROM tasks WHERE isCompleted = 1 AND parentId IS NULL ORDER BY dueDate DESC")
+    LiveData<List<TaskWithSubtasks>> getCompletedTasksWithSubtasks();
 
-    @Query("SELECT * FROM tasks WHERE priority = :priority ORDER BY dueDate ASC")
+    @Query("SELECT * FROM tasks WHERE parentId = :parentId ORDER BY createdDate ASC")
+    LiveData<List<Task>> getSubtasks(int parentId);
+
+    // These methods might still be useful for other purposes, so we keep them.
+    @Query("SELECT * FROM tasks WHERE priority = :priority AND parentId IS NULL ORDER BY dueDate ASC")
     LiveData<List<Task>> getTasksByPriority(String priority);
 
-    @Query("SELECT * FROM tasks WHERE category = :category ORDER BY dueDate ASC")
+    @Query("SELECT * FROM tasks WHERE category = :category AND parentId IS NULL ORDER BY dueDate ASC")
     LiveData<List<Task>> getTasksByCategory(String category);
 }

@@ -1,3 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">My planner</string>
+    <string name="new_task_title">Новая задача</string>
+    <string name="task_name_hint">Название задачи</string>
+    <string name="task_description_hint">Описание</string>
+    <string name="due_date_time_label">Дата и время выполнения</string>
+    <string name="date_button_text">📅 Дата</string>
+    <string name="time_button_text">🕐 Время</string>
+    <string name="selected_date_time_placeholder">Выберите дату и время</string>
+    <string name="priority_label">Приоритет</string>
+    <string name="priority_high">🔴 Высокий</string>
+    <string name="priority_medium">🟠 Средний</string>
+    <string name="priority_low">🟢 Низкий</string>
+    <string name="category_label">Категория</string>
+    <string name="reminder_label">⏰ Напомнить за</string>
+    <string name="cancel_button_text">Отмена</string>
+    <string name="save_button_text">💾 Сохранить</string>
+
+    <!-- MainActivity Strings -->
+    <string name="edit_task_toast">Редактирование: %s</string>
+    <string name="task_completed_toast">✓ Задача выполнена</string>
+    <string name="task_active_toast">◯ Задача активна</string>
+    <string name="delete_task_dialog_title">Удалить задачу?</string>
+    <string name="delete_task_dialog_message">Вы уверены, что хотите удалить \"%s\"?</string>
+    <string name="delete_button_text">Удалить</string>
+    <string name="task_deleted_toast">✗ Задача удалена</string>
+    <string name="undo_button_text">Отменить</string>
+    <string name="task_added_toast">✓ Задача добавлена</string>
+    <string name="task_updated_toast">✓ Задача обновлена</string>
+    <string name="subtask_added_toast">✓ Подзадача добавлена</string>
+    <string name="enter_task_name_toast">Введите название задачи</string>
+    <string name="delete_all_tasks_dialog_title">Удалить все задачи?</string>
+    <string name="delete_all_tasks_dialog_message">Это действие нельзя отменить!</string>
+    <string name="delete_all_button_text">Удалить всё</string>
+    <string name="all_tasks_deleted_toast">Все задачи удалены</string>
+    <string name="filter_active_tasks_toast">Показаны активные задачи</string>
+    <string name="filter_completed_tasks_toast">Показаны завершенные задачи</string>
+    <string name="filter_all_tasks_toast">Показаны все задачи</string>
+    <string name="empty_task_list">Задач пока нет</string>
+
+    <!-- Spinner Arrays -->
+    <string-array name="task_categories">
+        <item>Работа</item>
+        <item>Личное</item>
+        <item>Учеба</item>
+        <item>Покупки</item>
+        <item>Другое</item>
+    </string-array>
+
+    <string-array name="reminder_times">
+        <item>Не напоминать</item>
+        <item>За 5 минут</item>
+        <item>За 15 минут</item>
+        <item>За 30 минут</item>
+        <item>За 1 час</item>
+        <item>За 1 день</item>
+    </string-array>
+
+    <integer-array name="reminder_time_values_minutes">
+        <item>-1</item> <!-- Соответствует "Не напоминать" -->
+        <item>5</item>
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>1440</item> <!-- 24 * 60 -->
+    </integer-array>
+
 </resources>

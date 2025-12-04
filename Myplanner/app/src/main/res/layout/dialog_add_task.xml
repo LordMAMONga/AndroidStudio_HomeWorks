@@ -1,209 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Новая задача"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Название задачи -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Название задачи"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Описание -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="Описание"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:lines="3"
-                android:gravity="top" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Дата и время -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Дата и время выполнения"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp" />
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:orientation="vertical"
+            android:padding="24dp">
 
-            <Button
-                android:id="@+id/buttonSelectDate"
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
-                android:text="📅 Дата"
-                android:textSize="14sp"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                android:text="@string/new_task_title"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_marginBottom="16dp" />
 
-            <Button
-                android:id="@+id/buttonSelectTime"
-                android:layout_width="0dp"
+            <!-- Название задачи -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="🕐 Время"
-                android:textSize="14sp"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                android:hint="@string/task_name_hint"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Описание -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/task_description_hint"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:lines="3"
+                    android:gravity="top" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Дата и время -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/due_date_time_label"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/buttonSelectDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/date_button_text"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+                <Button
+                    android:id="@+id/buttonSelectTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/time_button_text"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewSelectedDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/selected_date_time_placeholder"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:padding="8dp"
+                android:background="@color/selected_date_background" />
+
+            <!-- Приоритет -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/priority_label"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupPriority"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioHigh"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/priority_high" />
+
+                <RadioButton
+                    android:id="@+id/radioMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/priority_medium"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:id="@+id/radioLow"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/priority_low" />
+
+            </RadioGroup>
+
+            <!-- Категория -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:hint="@string/category_label">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/autoCompleteCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Напоминание -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:hint="@string/reminder_label">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/autoCompleteReminder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!-- Кнопки -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp"
+                android:gravity="end">
+
+                <Button
+                    android:id="@+id/buttonCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancel_button_text"
+                    style="@style/Widget.MaterialComponents.Button.TextButton" />
+
+                <Button
+                    android:id="@+id/buttonSave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/save_button_text"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_marginStart="8dp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textViewSelectedDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Выберите дату и время"
-            android:textSize="14sp"
-            android:textColor="@android:color/holo_blue_dark"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:padding="8dp"
-            android:background="#E3F2FD" />
-
-        <!-- Приоритет -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Приоритет"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp" />
-
-        <RadioGroup
-            android:id="@+id/radioGroupPriority"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radioHigh"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="🔴 Высокий"
-                android:textSize="12sp" />
-
-            <RadioButton
-                android:id="@+id/radioMedium"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="🟠 Средний"
-                android:textSize="12sp"
-                android:checked="true" />
-
-            <RadioButton
-                android:id="@+id/radioLow"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="🟢 Низкий"
-                android:textSize="12sp" />
-
-        </RadioGroup>
-
-        <!-- Категория -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Категория"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp" />
-
-        <Spinner
-            android:id="@+id/spinnerCategory"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@android:drawable/btn_dropdown"
-            android:padding="12dp"
-            android:spinnerMode="dropdown" />
-
-        <!-- Напоминание -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="⏰ Напомнить за"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp" />
-
-        <Spinner
-            android:id="@+id/spinnerReminder"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@android:drawable/btn_dropdown"
-            android:padding="12dp"
-            android:spinnerMode="dropdown" />
-
-        <!-- Кнопки -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="24dp"
-            android:gravity="end">
-
-            <Button
-                android:id="@+id/buttonCancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Отмена"
-                style="@style/Widget.MaterialComponents.Button.TextButton" />
-
-            <Button
-                android:id="@+id/buttonSave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="💾 Сохранить"
-                android:layout_marginStart="8dp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </ScrollView>

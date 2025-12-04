@@ -7,44 +7,47 @@
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:padding="16dp">
 
         <CheckBox
             android:id="@+id/checkBoxCompleted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/taskContentLayout" />
 
         <LinearLayout
+            android:id="@+id/taskContentLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginStart="12dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@id/buttonDelete"
+            app:layout_constraintStart_toEndOf="@id/checkBoxCompleted"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/textViewTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Название задачи"
+                android:textColor="@android:color/black"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Описание задачи"
-                android:textSize="14sp"
-                android:textColor="@android:color/darker_gray"
+                android:ellipsize="end"
                 android:maxLines="2"
-                android:ellipsize="end" />
+                android:text="Описание задачи"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -56,11 +59,11 @@
                     android:id="@+id/textViewDueDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
                     android:text="01.01.2025"
-                    android:textSize="12sp"
                     android:textColor="@android:color/darker_gray"
-                    android:drawableStart="@android:drawable/ic_menu_my_calendar"
-                    android:drawablePadding="4dp" />
+                    android:textSize="12sp"
+                    app:drawableStartCompat="@android:drawable/ic_menu_my_calendar" />
 
                 <View
                     android:id="@+id/viewPriorityIndicator"
@@ -76,8 +79,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="Высокий"
-                    android:textSize="12sp"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
@@ -87,11 +90,34 @@
             android:id="@+id/buttonDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_menu_delete"
-            android:contentDescription="Удалить задачу" />
+            android:contentDescription="Удалить задачу"
+            app:layout_constraintBottom_toBottomOf="@id/taskContentLayout"
+            app:layout_constraintEnd_toStartOf="@id/expandIndicator"
+            app:layout_constraintTop_toTopOf="@id/taskContentLayout"
+            app:srcCompat="@android:drawable/ic_menu_delete" />
 
-    </LinearLayout>
+        <ImageButton
+            android:id="@+id/expandIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_keyboard_arrow_down"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/taskContentLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/taskContentLayout" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/subtaskRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/taskContentLayout"
+            app:layout_constraintTop_toBottomOf="@id/taskContentLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

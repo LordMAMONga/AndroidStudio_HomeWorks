@@ -5,67 +5,78 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 import com.kstu.myplanner.model.Task;
+import com.kstu.myplanner.model.TaskWithSubtasks;
 import com.kstu.myplanner.repository.TaskRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class TaskViewModel extends AndroidViewModel {
-    private TaskRepository repository;
-    private LiveData<List<Task>> allTasks;
-    private LiveData<List<Task>> activeTasks;
-    private LiveData<List<Task>> completedTasks;
+    private final TaskRepository repository;
+    private final MutableLiveData<String> filterLiveData = new MutableLiveData<>();
+    private final LiveData<List<Task>> tasks;
+
+    public static final String FILTER_ALL = "ALL";
+    public static final String FILTER_ACTIVE = "ACTIVE";
+    public static final String FILTER_COMPLETED = "COMPLETED";
 
     public TaskViewModel(@NonNull Application application) {
         super(application);
         repository = new TaskRepository(application);
-        allTasks = repository.getAllTasks();
-        activeTasks = repository.getActiveTasks();
-        completedTasks = repository.getCompletedTasks();
+
+        filterLiveData.setValue(FILTER_ALL);
+
+        tasks = Transformations.switchMap(filterLiveData, filter -> {
+            LiveData<List<TaskWithSubtasks>> source;
+            if (Objects.equals(filter, FILTER_ACTIVE)) {
+                source = repository.getActiveTasksWithSubtasks();
+            } else if (Objects.equals(filter, FILTER_COMPLETED)) {
+                source = repository.getCompletedTasksWithSubtasks();
+            } else {
+                source = repository.getAllTasksWithSubtasks();
+            }
+            return Transformations.map(source, this::convertTaskWithSubtasksToTasks);
+        });
     }
 
-    // Получить все задачи
-    public LiveData<List<Task>> getAllTasks() {
-        return allTasks;
+    private List<Task> convertTaskWithSubtasksToTasks(List<TaskWithSubtasks> tasksWithSubtasks) {
+        if (tasksWithSubtasks == null) {
+            return new ArrayList<>();
+        }
+        return tasksWithSubtasks.stream()
+                .map(taskWithSubtasks -> {
+                    taskWithSubtasks.task.setSubtasks(taskWithSubtasks.subtasks);
+                    return taskWithSubtasks.task;
+                })
+                .collect(Collectors.toList());
     }
 
-    // Получить активные задачи
-    public LiveData<List<Task>> getActiveTasks() {
-        return activeTasks;
+    public void setFilter(String filter) {
+        filterLiveData.setValue(filter);
     }
 
-    // Получить завершенные задачи
-    public LiveData<List<Task>> getCompletedTasks() {
-        return completedTasks;
+    public LiveData<List<Task>> getTasks() {
+        return tasks;
     }
 
-    // Получить задачи по приоритету
-    public LiveData<List<Task>> getTasksByPriority(String priority) {
-        return repository.getTasksByPriority(priority);
-    }
-
-    // Получить задачи по категории
-    public LiveData<List<Task>> getTasksByCategory(String category) {
-        return repository.getTasksByCategory(category);
-    }
-
-    // Добавить задачу
     public void insert(Task task) {
         repository.insert(task);
     }
 
-    // Обновить задачу
     public void update(Task task) {
         repository.update(task);
     }
 
-    // Удалить задачу
     public void delete(Task task) {
         repository.delete(task);
     }
 
-    // Удалить все задачи
     public void deleteAllTasks() {
         repository.deleteAllTasks();
     }
