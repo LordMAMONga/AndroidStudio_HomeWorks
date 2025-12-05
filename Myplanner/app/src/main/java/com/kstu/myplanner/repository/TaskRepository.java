@@ -57,16 +57,16 @@ public class TaskRepository {
         try {
             long id = future.get();
             task.setId((int) id);
-            Log.d(TAG, "Scheduling notification for new task. ID: " + task.getId() + ", Due: " + task.getDueDate() + ", ReminderMins: " + task.getReminderMinutes());
+            Log.d("ololo", "Scheduling notification for new task. ID: " + task.getId() + ", Due: " + task.getDueDate() + ", ReminderMins: " + task.getReminderMinutes());
             notificationHelper.scheduleNotification(task);
         } catch (ExecutionException | InterruptedException e) {
-            Log.e(TAG, "Error inserting task", e);
+            Log.e("ololo", "Error inserting task", e);
         }
     }
 
     public void update(Task task) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
-            Log.d(TAG, "Scheduling notification for updated task. ID: " + task.getId() + ", Due: " + task.getDueDate() + ", ReminderMins: " + task.getReminderMinutes());
+            Log.d("ololo", "Scheduling notification for updated task. ID: " + task.getId() + ", Due: " + task.getDueDate() + ", ReminderMins: " + task.getReminderMinutes());
             taskDao.update(task);
             notificationHelper.scheduleNotification(task);
         });
